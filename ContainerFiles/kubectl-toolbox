@@ -1,0 +1,14 @@
+FROM ghcr.io/ublue-os/wolfi-toolbox:latest
+
+LABEL com.github.containers.toolbox="true" \
+      usage="This image is meant to be used with the toolbox or distrobox command to run kubectl and friends without needing to install it on the host" \
+      summary="A toolbox/distrobox with kubernetes management commands." \
+      maintainer="rrenomeron+github@gmail.com"
+
+# Copy the setup scripts 
+COPY ../scripts/kubectl-toolbox.sh /
+COPY ../scripts/distrobox-shims.sh /
+
+RUN chmod ugo+x distrobox-shims.sh kubectl-toolbox.sh && /kubectl-toolbox.sh
+
+
